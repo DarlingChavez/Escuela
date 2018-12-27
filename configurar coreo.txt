@@ -1,0 +1,2 @@
+https://www.google.com/settings/security/lesssecureapps
+https://myaccount.google.com/lesssecureapps?pli=1

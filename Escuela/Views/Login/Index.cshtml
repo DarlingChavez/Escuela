@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@Styles.Render("~/Custom/css")
+
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="~/Content/Images/logolasalle.gif" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" method="post" action="@Url.Action("Ingresar", "Login")">
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="email" id="inputEmail" name="usuario.Email" class="form-control" placeholder="Email" required autofocus
+                   oninvalid="setCustomValidity('Por favor ingrese un email valido!')">
+            <input type="password" id="inputPassword" name="usuario.Password" class="form-control" placeholder="Password" required>
+            <div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" name="usuario.Remenber" value="true"> Recuerdame
+                    <input type="hidden" name="usuario.Remenber" value="false">
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Ingresar</button>
+        </form>
+        <br />
+        <a href="@Url.Action("RecuperarPassword","Login")" class="forgot-password">
+            Recuperar password
+        </a>
+    </div>
+</div>

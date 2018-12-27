@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["ApplicationName"]</title>
+    @Styles.Render("~/Custom/css")
+</head>
+<body>
+    <div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @System.Configuration.ConfigurationManager.AppSettings["SchoolName"]</p>
+        </footer>
+    </div>
+</body>
+</html>
