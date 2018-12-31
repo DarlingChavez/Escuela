@@ -159,6 +159,7 @@
     <Compile Include="Models\Context\Profesor.cs" />
     <Compile Include="Models\Context\Representante.cs" />
     <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
@@ -212,6 +213,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\Master.cshtml" />
     <Content Include="Views\Login\RecuperarPassword.cshtml" />
+    <Content Include="Views\Login\PasswordReseteada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

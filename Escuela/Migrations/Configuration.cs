@@ -144,7 +144,7 @@ namespace Escuela.Migrations
                     IdCurso = 1,
                     IdRepresentante = 1,
                     Direccion = "Tarrasa Espanha",
-                    Email = "elxavidelbarza@gmail.com",
+                    Email = "darling.chavez@hotmail.com",
                     Password = "123",
                     Telefono = "09123",
                     Genero = GlobalWords.Gender.Masculino,

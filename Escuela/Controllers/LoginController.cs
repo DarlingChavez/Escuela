@@ -57,14 +57,28 @@ namespace Escuela.Controllers
             return View();
         }
 
-        public ActionResult ResetarPassword(User user)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ResetarPassword(User user)
         {
+            var respuesta = new ResponseModel
+            {
+                respuesta = true,
+                redirect = "/Login/PasswordReseteada",
+                error = ""
+            };
             LoginService loginService = new LoginService();
             bool existe = loginService.ExisteEmail(user.Email);
             if (!existe)
             {
-
-                
+                ModelState.AddModelError("Login", "El correo ingresado es incorrecto");
+                respuesta.respuesta = false;
+                respuesta.error = "El correo ingresado es incorrecto";
+                return Json(respuesta);
             }
             string emailSistema = ConfigurationManager.AppSettings["Email"];
             string passwordEmail = ConfigurationManager.AppSettings["Password"];
@@ -75,7 +89,8 @@ namespace Escuela.Controllers
             correo.To.Add(user.Email);
             correo.Subject = ConfigurationManager.AppSettings["SchoolName"] + " - " + "Recuperar password";
             string cuerpo = "Se ha ingresado su correo para recuperar la clave del sistema SisCool. La clave es: ";
-            cuerpo += "";
+            string password = loginService.GetPassword(user.Email);
+            cuerpo += password;
             correo.Body = cuerpo;
             correo.Priority = MailPriority.Normal;
             // smtp - el servidor de correo depende si es gmail o hotmail, etc
@@ -85,16 +100,14 @@ namespace Escuela.Controllers
             smtpClient.Port = puertoSmtp;
             smtpClient.EnableSsl = true;
 
-            try
-            {
-                smtpClient.Send(correo);
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            smtpClient.Send(correo);
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("PasswordReseteada", "Login");
+        }
+
+        public ActionResult PasswordReseteada()
+        {
+            return View();
         }
 
     }
