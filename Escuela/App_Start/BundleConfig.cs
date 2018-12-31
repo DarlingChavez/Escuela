@@ -31,6 +31,9 @@ namespace Escuela
                       "~/Content/custom-colors.css",
                       "~/Content/login.css"));
 
+            bundles.Add(new ScriptBundle("~/Custom/jquery").Include(
+                        "~/Scripts/jquery.form.min.js",
+                        "~/Scripts/jquery.unobtrusive.min.js"));
 
         }
     }

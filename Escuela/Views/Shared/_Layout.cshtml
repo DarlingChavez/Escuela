@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    
+
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container" style="color:white">
             <div class="navbar-header" style="color:white">
@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         //System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-                        bool isAuth = (Param.Instance.Logueado==null);
+                        bool isAuth = (Param.Instance.Logueado == null);
                         string msgUsuario = string.Empty;
                         if (isAuth)
                         {
@@ -40,7 +40,7 @@
                         }
 
                     }
-                    <li>@Html.ActionLink("Ingresar a "+msgUsuario, "Index", "Login")</li>
+                    <li>@Html.ActionLink("Ingresar a " + msgUsuario, "Index", "Login")</li>
                 </ul>
             </div>
         </div>
@@ -56,6 +56,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Custom/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

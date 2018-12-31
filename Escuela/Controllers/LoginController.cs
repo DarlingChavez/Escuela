@@ -63,7 +63,7 @@ namespace Escuela.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult ResetarPassword(User user)
+        public JsonResult ResetearPassword(User user)
         {
             var respuesta = new ResponseModel
             {
@@ -75,9 +75,9 @@ namespace Escuela.Controllers
             bool existe = loginService.ExisteEmail(user.Email);
             if (!existe)
             {
-                ModelState.AddModelError("Login", "El correo ingresado es incorrecto");
+                ModelState.AddModelError("validacionEmail", "El correo ingresado no esta disponible en la base de datos");
                 respuesta.respuesta = false;
-                respuesta.error = "El correo ingresado es incorrecto";
+                respuesta.error = (from item in ModelState where item.Key == "validacionEmail" select item.Value.Errors[0].ErrorMessage).First();
                 return Json(respuesta);
             }
             string emailSistema = ConfigurationManager.AppSettings["Email"];
@@ -102,7 +102,7 @@ namespace Escuela.Controllers
 
             smtpClient.Send(correo);
 
-            return RedirectToAction("PasswordReseteada", "Login");
+            return Json(respuesta);
         }
 
         public ActionResult PasswordReseteada()
