@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Configuration;
 using Escuela.Services;
+using System.Threading.Tasks;
 
 namespace Escuela.Controllers
 {
@@ -63,7 +64,7 @@ namespace Escuela.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult ResetearPassword(User user)
+        public JsonResult  ResetearPassword(string email)
         {
             var respuesta = new ResponseModel
             {
@@ -72,12 +73,12 @@ namespace Escuela.Controllers
                 error = ""
             };
             LoginService loginService = new LoginService();
-            bool existe = loginService.ExisteEmail(user.Email);
+            bool existe = loginService.ExisteEmail(email);
             if (!existe)
             {
                 ModelState.AddModelError("validacionEmail", "El correo ingresado no esta disponible en la base de datos");
                 respuesta.respuesta = false;
-                respuesta.error = (from item in ModelState where item.Key == "validacionEmail" select item.Value.Errors[0].ErrorMessage).First();
+                respuesta.error = (from item in ModelState where item.Key == "validacionEmail" select item.Value.Errors[0].ErrorMessage).SingleOrDefault();
                 return Json(respuesta);
             }
             string emailSistema = ConfigurationManager.AppSettings["Email"];
@@ -86,10 +87,10 @@ namespace Escuela.Controllers
             int puertoSmtp = Convert.ToInt32(ConfigurationManager.AppSettings["PuertoSMTP"]);
             MailMessage correo = new MailMessage();
             correo.From = new MailAddress(emailSistema);
-            correo.To.Add(user.Email);
+            correo.To.Add(email);
             correo.Subject = ConfigurationManager.AppSettings["SchoolName"] + " - " + "Recuperar password";
             string cuerpo = "Se ha ingresado su correo para recuperar la clave del sistema SisCool. La clave es: ";
-            string password = loginService.GetPassword(user.Email);
+            string password = loginService.GetPassword(email);
             cuerpo += password;
             correo.Body = cuerpo;
             correo.Priority = MailPriority.Normal;
@@ -100,7 +101,14 @@ namespace Escuela.Controllers
             smtpClient.Port = puertoSmtp;
             smtpClient.EnableSsl = true;
 
-            smtpClient.Send(correo);
+            try
+            {
+                smtpClient.Send(correo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return Json(respuesta);
         }
