@@ -168,6 +168,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\cargando.gif" />
     <Content Include="Content\Images\logolasalle.gif" />
     <Content Include="Content\login.css" />
     <Content Include="Content\navbarleft.css" />
