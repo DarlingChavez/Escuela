@@ -39,6 +39,10 @@ namespace Escuela.Controllers
             {
                 if (usuario.Remenber)
                 {
+                    System.Web.HttpContext.Current.Application.Lock();
+                    System.Web.HttpContext.Current.Application["Logoneado"] = true;
+                    System.Web.HttpContext.Current.Application.UnLock();
+                    Session["Logueado"] = true;
                     return RedirectToAction("Contact", "Home");
                 }
                 return RedirectToAction("About","Home");
@@ -112,7 +116,7 @@ namespace Escuela.Controllers
 
             return Json(respuesta);
         }
-
+        
         public ActionResult PasswordReseteada()
         {
             return View();

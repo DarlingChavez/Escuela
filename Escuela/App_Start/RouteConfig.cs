@@ -13,6 +13,8 @@ namespace Escuela
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.IgnoreRoute("Login/PasswordReseteada");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
